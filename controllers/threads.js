@@ -17,7 +17,10 @@ router.get('/', async (req, res) => {
       username: req.session.username
     });
   } else {
-    res.redirect('/user/login');
+    res.render('threads/index.ejs', {
+      threads: allThreads,
+      username:null
+    });
   }
 });
 router.get('/new', async (req, res) => {

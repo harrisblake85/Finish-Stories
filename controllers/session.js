@@ -3,20 +3,18 @@
   const User   = require('../models/users.js');
   const bcrypt = require('bcrypt');
 
-
   router.get('/login', (req, res) => {
-   res.render("threads/login.ejs");
+   res.render("threads/login.ejs",{message:req.session.message});
   });
 
-  // router.get('/deleteall', async (req, res) => {
-  //   const allUser = await User.remove();
-  //   res.redirect("/threads/");
-  // });
+  router.get('/deleteall', async (req, res) => {
+    const allUser = await User.remove();
+    res.redirect("/threads/");
+  });
 
   router.post('/login', (req, res, next) => {
-
+  req.body.username=req.body.username.toLowerCase();
   User.findOne({username: req.body.username}, (err, user) => {
-
     if (user) {
        //now compare hash with the password from the form
        if (bcrypt.compareSync(req.body.password, user.password)) {
@@ -41,7 +39,7 @@
   });
   // at top of session.js
 
-  router.post('/register', (req, res, next) => {
+  router.post('/register', (req, res) => {
   // first we are going to hash the password
   const password = req.body.password;
   const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -52,11 +50,20 @@
   userDbEntry.password = passwordHash
 
   // lets put the password into the database
+
   User.create(userDbEntry, (err, user) => {
-   console.log(user)
-   req.session.username = user.username;
-   req.session.logged  = true;
-   res.redirect('/')
+    if (err) {
+      console.log(err);
+      req.session.message="Username already taken!"
+      res.redirect('/user/login')
+    }
+    else {
+      console.log(user)
+      req.session.username = user.username;
+      req.session.logged  = true;
+      res.redirect('/')
+    }
+
   });
   })
 

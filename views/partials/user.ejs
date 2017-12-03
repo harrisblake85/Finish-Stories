@@ -1,6 +1,9 @@
 <header>
-  <a href="/user/login"><button>Login</button></a>
   <% if (username) { %>
     Welcome, <%= username %>. <a href="/user/logout"><button>Log Out</button></a>
     <% } %>
+  <%if (username===null) {%>
+    <p>Login to Post a New Thread!</p>
+  <%}%>
+  <a href="/user/login"><button>Login</button></a>
   </header>
