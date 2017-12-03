@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <header>
+    <% if (username) { %>
+      Welcome, <%= username %>. <a href="/user/logout"><button>Log Out</button></a>
+      <% } %>
+    </header>
+    <a href="/user/login"><button>login</button></a>
+
+    <% for (let i = 0; i < threads.length; i++) { %>
+      <a href="/threads/<%= threads[i].id %>/"><img src="<%= threads[i].url %>" /></a>
+      <% } %>
+
+      <form action="/threads" method="post">
+        URL: <input name="url" /><br/>
+        Author: <input name="submitted_by" />
+
+        <button type="submit">Submit</button>
+      </form>
+    </body>
+    </html>

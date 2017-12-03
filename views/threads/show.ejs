@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <img src='<%= oneThread.url %>' />
+
+    <% for (let piece of pieces) { %>
+      <p><strong><%= piece.author %></strong> - <%= piece.content %></p>
+    <% } %>
+
+    <h3>Add a piece!</h3>
+
+    <form action='/pieces' method='post'>
+      <input type='text' name='content' placeholder='content' />
+      <input type='text' name='author' placeholder='author' />
+      <input type='hidden' name='thread' value='<%= oneThread._id %>' />
+      <input type='submit' />
+    </form>
+
+  </body>
+</html>

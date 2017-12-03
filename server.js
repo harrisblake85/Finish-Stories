@@ -1,0 +1,47 @@
+const express  = require('express');
+const mongoose = require('mongoose');
+const morgan   = require('morgan');
+const session  = require('express-session');
+const app      = express();
+const PORT     = 3000;
+
+// connect to database
+const mongoURI = 'mongodb://localhost:27017/thread_pieces';
+mongoose.connect(mongoURI, { useMongoClient: true});
+mongoose.Promise = global.Promise;
+
+// test db connection
+const db = mongoose.connection;
+db.on('error', (err) => console.log(err.message));
+db.on('connected', () => console.log('Mongo running: ', mongoURI));
+
+// We're not using this yet, but we will
+// const usersModel = require('./models/users.js');
+
+// middleware
+app.use(express.urlencoded({ extended: false}));
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(session({
+	 secret: "tshdfhgggidfhsjgh",
+	 resave: false,
+	 saveUninitialized: false
+}));
+// controllers
+const threadsController = require('./controllers/threads.js');
+const piecesController = require('./controllers/pieces.js');
+const sessionsController = require('./controllers/session.js');
+
+app.use('/threads', threadsController);
+app.use('/pieces', piecesController);
+app.use('/user', sessionsController);
+
+// root route
+app.get('/', (req, res) => res.redirect('/threads'));
+
+// :ear
+app.listen(PORT, () => {
+  console.log('===========================');
+  console.log('Thread app on port: ', PORT);
+  console.log('===========================');
+});
