@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <a href="/photos/"><button>Go To Photos</button></a>
-    <br>
-Login:
-<br>
-      <form action="/user/login" method="post">
-        Username: <input name="username" /> <br />
-        Password: <input name="password" /><br />
+<head>
+  <% include ../partials/head.ejs %>
+</head>
+<body>
+  <a href="/threads/"><button>Go To Threads</button></a>
+  <br>
+  Login:
+  <br>
+  <form action="/user/login" method="post">
+    Username: <input name="username" /> <br />
+    Password: <input name="password" /><br />
 
-        <button type="submit">Login</button>
-      </form>
-Register:
-<br>
-      <form action="/user/login" method="post">
-        Username: <input name="username" /> <br />
-        Password: <input name="password" /><br />
+    <button type="submit">Login</button>
+  </form>
+  Register:
+  <br>
+  <form action="/user/register" method="post">
+    Username: <input name="username" /> <br />
+    Password: <input name="password" /><br />
 
-        <button type="submit">Register</button>
-      </form>
-  </body>
+    <button type="submit">Register</button>
+  </form>
+</body>
 </html>

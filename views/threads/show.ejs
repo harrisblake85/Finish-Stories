@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <% include ../partials/head.ejs %>
   </head>
   <body>
+    <a href="/threads/">
+      <button>Go To Threads</button></a>
+    <br>
     <img src='<%= oneThread.url %>' />
+    <div class="">
+    <a href="/threads/<%=oneThread.id%>/edit">
+      <button>Edit Thread</button></a>
+    <form class= "" action="/threads/<%= oneThread.id %>?_method=DELETE" method="POST">
+      <input type="submit" value="Delete Thread" />
+    </form>
+  </div>
 
     <% for (let piece of pieces) { %>
       <p><strong><%= piece.author %></strong> - <%= piece.content %></p>

@@ -2,11 +2,12 @@ const express  = require('express');
 const mongoose = require('mongoose');
 const morgan   = require('morgan');
 const session  = require('express-session');
+const methodOverride = require('method-override');
 const app      = express();
 const PORT     = 3000;
 
 // connect to database
-const mongoURI = 'mongodb://localhost:27017/thread_pieces';
+const mongoURI = 'mongodb://localhost:27017/finish-stories';
 mongoose.connect(mongoURI, { useMongoClient: true});
 mongoose.Promise = global.Promise;
 
@@ -21,7 +22,9 @@ db.on('connected', () => console.log('Mongo running: ', mongoURI));
 // middleware
 app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
+app.use(methodOverride('_method'));
 app.use(morgan('dev'));
+app.use(express.static('public'));
 app.use(session({
 	 secret: "tshdfhgggidfhsjgh",
 	 resave: false,

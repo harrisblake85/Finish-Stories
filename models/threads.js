@@ -1,7 +1,7 @@
   const mongoose = require('mongoose');
 
  const threadSchema = mongoose.Schema({
-   url: { type: String, require: true },
+   url: String,
    submitted_by: String
  });
 

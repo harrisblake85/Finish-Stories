@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/head.ejs %>
+</head>
+<body>
+  <h1>New Thread Page</h1>
+  <a href="/threads/"><button>Go Back</button></a>
+  <br>
+
+  <form action="/threads/" method="POST">
+    submitted_by: <input type="text" name="submitted_by" value="George" /><br/>
+
+    Image Url: <input type="text" name="url" value="http://davidnaylor.org/temp/thunderbird-logo-200x200.png" />
+
+    id: <input type="hidden" name="id" />
+
+    <input type="submit" value="Create thread" />
+  </form>
+</body>
+</html>

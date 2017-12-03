@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include ../partials/head.ejs %>
+</head>
+<body>
+  <a href="/threads/"><button>Go Back</button></a>
+  <br>
+  <form action="/threads/<%= id %>?_method=PUT" method="POST">
+
+    Submitted By: <input type="text" name="submitted_by" value="<%= athread.submitted_by %>"/>
+    <br/>
+
+    Url: <input type="text" name="url" value="<%= athread.url %>"/>
+    <br/>
+
+    Id(hidden):
+    <input type="hidden" name="id" value="<%= athread.id %>"/><br/>
+
+  </input>
+
+  <br/>
+  <input type="submit" name="" value="Submit Changes"/>
+</form>
+</body>
+</html>

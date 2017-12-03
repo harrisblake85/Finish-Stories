@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title></title>
+  <% include ../partials/head.ejs %>
 </head>
 <body>
-  <header>
-    <% if (username) { %>
-      Welcome, <%= username %>. <a href="/user/logout"><button>Log Out</button></a>
-      <% } %>
-    </header>
-    <a href="/user/login"><button>login</button></a>
+  <% include ../partials/user.ejs %>
 
-    <% for (let i = 0; i < threads.length; i++) { %>
-      <a href="/threads/<%= threads[i].id %>/"><img src="<%= threads[i].url %>" /></a>
-      <% } %>
+    <div class="indexbuttons">
+      <a href="/threads/new"><button>New Story</button></a>
+      <%if (username ==="admin") {%>
+        <a href="/threads/seed"><button>Seed</button></a>
+        <a href="/threads/deleteall"><button>Delete All</button></a>
+      <%}%>
 
-      <form action="/threads" method="post">
-        URL: <input name="url" /><br/>
-        Author: <input name="submitted_by" />
+    </div>
 
-        <button type="submit">Submit</button>
-      </form>
+    <%# for loop%>
+    <%for (let i of threads) { %>
+      <a href="/threads/<%=i.id%>">
+      <button>
+      <h2><%=i.submitted_by%></h2>
+      <img src=<%=i.url%>>
+      </button>
+      </a>
+      <%}%>
     </body>
     </html>
