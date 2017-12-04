@@ -19,8 +19,9 @@
     <%for (let i of threads) { %>
       <a href="/threads/<%=i.id%>">
       <button>
-      <h2><%=i.submitted_by%></h2>
+      <h2><%=i.title%></h2>
       <img src=<%=i.url%>>
+      <p>Views: <%=i.views%></p>
       </button>
       </a>
       <%}%>

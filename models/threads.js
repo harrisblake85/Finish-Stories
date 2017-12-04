@@ -2,7 +2,10 @@
 
  const threadSchema = mongoose.Schema({
    url: String,
-   submitted_by: String
+   title: String,
+   start: String,
+   views: Number,
+   user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
  });
 
  module.exports = mongoose.model('Thread', threadSchema);

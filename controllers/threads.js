@@ -6,6 +6,7 @@ const seedpieces = require('../models/seedpieces.js');
 // models
 const Thread = require('../models/threads.js');
 const Piece = require('../models/pieces.js');
+const User = require('../models/users.js');
 
 
 router.get('/', async (req, res) => {
@@ -24,7 +25,15 @@ router.get('/', async (req, res) => {
   }
 });
 router.get('/new', async (req, res) => {
-  res.render('threads/new.ejs', {session:req.session});
+
+  const aUser = await User.findOne({username: req.session.username});
+  if (aUser) {
+    res.render('threads/new.ejs', {user:aUser});
+  }
+  else {
+    req.session.message="You must login or register to make a new thread!"
+    res.redirect("/user/login");
+  }
 });
 
 //delete all
@@ -65,11 +74,16 @@ router.get('/:id/edit', async (req, res) => {
 // show route
 router.get('/:id', async (req, res) => {
   const oneThread = await Thread.findById(req.params.id);
+  const starterid=oneThread.user;
+  const startuser = await User.findById(starterid);
   const pieces = await Piece.find({ thread: oneThread._id });
+  const currentuser = await User.findOne({username: req.session.username});
 
   res.render('threads/show.ejs', {
     oneThread: oneThread,
-    pieces: pieces
+    pieces: pieces,
+    currentuser:currentuser,
+    startuser:startuser
   });
 });
 

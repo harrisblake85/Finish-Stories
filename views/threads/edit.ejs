@@ -8,14 +8,19 @@
   <br>
   <form action="/threads/<%= id %>?_method=PUT" method="POST">
 
-    Submitted By: <input type="text" name="submitted_by" value="<%= athread.submitted_by %>"/>
+    title: <input type="text" name="title" value="<%= athread.title %>"/>
+    <br/>
+    start: <input type="text" name="title" value="<%= athread.start %>"/>
     <br/>
 
     Url: <input type="text" name="url" value="<%= athread.url %>"/>
     <br/>
-
-    Id(hidden):
+    Views(hidden)
+    <input type="hidden" name="id" value="<%= athread.views %>"/><br/>
+    Id(hidden)
     <input type="hidden" name="id" value="<%= athread.id %>"/><br/>
+    User(hidden)
+    <input type="hidden" name="user" value="<%= athread.user %>"/><br/>
 
   </input>
 

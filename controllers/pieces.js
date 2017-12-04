@@ -10,7 +10,8 @@
      const createdPiece = await Piece.create(req.body);
      res.redirect('/threads/' + createdPiece.thread);
      } catch (err) {
-       res.send(err.message);
+       req.session.body="Please Fill Out The Content Section!";
+       res.redirect('/threads/' + req.body.thread);
      }
      });
 

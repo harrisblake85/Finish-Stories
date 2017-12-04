@@ -7,13 +7,20 @@
   <h1>New Thread Page</h1>
   <a href="/threads/"><button>Go Back</button></a>
   <br>
-
+  <h2><%=user.username%></h2>
   <form action="/threads/" method="POST">
-    submitted_by: <input type="text" name="submitted_by" value="George" /><br/>
+    title: <input type="text" name="title" value="<%=user.username%>s title" /><br/>
+    Start The Story!: <input type="text" name="start" value="I don't know how it started.." /><br/>
 
     Image Url: <input type="text" name="url" value="http://davidnaylor.org/temp/thunderbird-logo-200x200.png" />
 
-    id: <input type="hidden" name="id" />
+    views<input type="hidden" name="views" value="0" />
+
+    id<input type="hidden" name="id" />
+
+
+
+    user<input type="hidden" name="user" value="<%=user.id%>" />
 
     <input type="submit" value="Create thread" />
   </form>

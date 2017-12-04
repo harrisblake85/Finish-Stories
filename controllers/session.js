@@ -3,6 +3,12 @@
   const User   = require('../models/users.js');
   const bcrypt = require('bcrypt');
 
+  router.get('/', async (req, res) => {
+    const allUsers = await User.find();
+    console.log(allUsers);
+   res.send({users:allUsers});
+  });
+
   router.get('/login', (req, res) => {
    res.render("threads/login.ejs",{message:req.session.message});
   });
@@ -12,12 +18,12 @@
     res.redirect("/threads/");
   });
 
-  router.post('/login', (req, res, next) => {
+  router.post('/login', async (req, res) => {
   req.body.username=req.body.username.toLowerCase();
-  User.findOne({username: req.body.username}, (err, user) => {
-    if (user) {
+  const aUser = await User.findOne({username: req.body.username});
+    if (aUser) {
        //now compare hash with the password from the form
-       if (bcrypt.compareSync(req.body.password, user.password)) {
+       if (bcrypt.compareSync(req.body.password, aUser.password)) {
          req.session.message = '';
          req.session.username = req.body.username;
          req.session.logged  = true;
@@ -34,8 +40,7 @@
       req.session.message = 'Username or password are incorrect';
       res.redirect('/user/login')
 
-    } //end of if user
-  });
+    }
   });
   // at top of session.js
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/head.ejs %>
+</head>
+<body>
+        <a href="/threads/seed"><button>Seed Users</button></a>
+        <a href="/user/deleteall"><button>Delete All</button></a>
+
+    </div>
+
+    <%# for loop%>
+    <%for (let user of users) { %>
+      <a href="/user/<%=user.id%>">
+      <button>
+      <h2><%=user.username%></h2>
+      </button>
+      </a>
+      <%}%>
+    </body>
+    </html>
