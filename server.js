@@ -4,10 +4,10 @@ const morgan   = require('morgan');
 const session  = require('express-session');
 const methodOverride = require('method-override');
 const app      = express();
-const PORT     = 3000;
+const PORT     = process.env.PORT||3000;
 
 // connect to database
-const mongoURI = 'mongodb://localhost:27017/finish-stories';
+const mongoURI = process.env.MONGODB_URI ||'mongodb://localhost:27017/finish-stories';
 mongoose.connect(mongoURI, { useMongoClient: true});
 mongoose.Promise = global.Promise;
 
@@ -45,6 +45,6 @@ app.get('/', (req, res) => res.redirect('/threads'));
 // :ear
 app.listen(PORT, () => {
   console.log('===========================');
-  console.log('Thread app on port: ', PORT);
+  console.log('Stories app on port: ', PORT);
   console.log('===========================');
 });
