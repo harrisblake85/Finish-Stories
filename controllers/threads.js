@@ -7,22 +7,25 @@ const Piece = require('../models/pieces.js');
 const User = require('../models/users.js');
 
 router.get('/', async (req, res) => {
+  const currentuser = await User.findOne({username: req.session.username});
   const allThreads = await Thread.find();
-  const changes= req.session.changes;
+  let changes= req.session.changes;
   req.session.changes="";
 
   if (req.session.logged) {
     res.render('threads/index.ejs', {
       threads: allThreads,
       username: req.session.username,
-      changes:changes
+      changes:changes,
+      currentuser:currentuser
 
     });
   } else {
     res.render('threads/index.ejs', {
       threads: allThreads,
       username:null,
-      changes:changes
+      changes:changes,
+      currentuser:currentuser
     });
   }
 
@@ -41,10 +44,9 @@ router.get('/new', async (req, res) => {
 
 //delete all
 router.get('/deleteall', async (req, res) => {
-  const admin = await User.findOne({username: "admin"});
   try {
     const currentuser = await User.findOne({username: req.session.username});
-    if (currentuser.id==admin.id) {
+    if (currentuser.admin) {
       const allThreads = await Thread.remove();
       const allPieces = await Piece.remove();
       req.session.changes="Successfully Deleted All Story Threads";
@@ -64,11 +66,10 @@ router.get('/deleteall', async (req, res) => {
 //delete method (comes from delete button)
 router.delete('/:id', async (req, res) => {
   const thethread = await Thread.findById(req.params.id);
-  const admin = await User.findOne({username: "admin"});
   try {
     const currentuser = await User.findOne({username: req.session.username});
 
-    if (currentuser.id==thethread.user||currentuser.id==admin.id) {
+    if (currentuser.id==thethread.user||currentuser.admin) {
       const thread = await Thread.findByIdAndRemove(req.params.id);
       await Piece.remove({ thread: thread._id });
       req.session.changes="Successfully Deleted Story Thread";
@@ -92,7 +93,7 @@ router.put('/:id/', async (req, res) => {
   try {
     const currentuser = await User.findOne({username: req.session.username});
 
-    if (currentuser.id==thethread.user||currentuser.id==admin.id) {
+    if (currentuser.id==thethread.user||currentuser.admin) {
       await Thread.findByIdAndUpdate(req.params.id,req.body);
       req.session.changes="Changes To Story Thread Successful";
       res.redirect("/threads/");
@@ -138,14 +139,18 @@ router.get('/:id', async (req, res) => {
 
 // create route
 router.post('/', async (req, res) => {
-  try {
-    const createdThread = await Thread.create(req.body);
-    res.session.changes="Created your Story Thread!"
-    res.redirect('/');
-  } catch (err) {
-    res.session.changes="Could not create your Story Thread, you probably were not logged in! (Won't see this message through normal use)"
-    res.redirect('/');
+  const currentuser = await User.findOne({username: req.session.username});
+  req.session.changes="Attempting to create your Story Thread!"
+  if (currentuser) {
+    try {
+      const createdThread = await Thread.create(req.body);
+      //
+      res.redirect('/');
+    } catch (err) {
+      res.redirect('/');
+    }
   }
+
 });
 
 module.exports = router;

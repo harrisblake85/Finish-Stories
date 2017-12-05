@@ -27,6 +27,7 @@
          req.session.message = '';
          req.session.username = req.body.username;
          req.session.logged  = true;
+         req.session.session  = "";
          console.log(req.session, req.body)
 
          res.redirect('/threads')
@@ -52,8 +53,7 @@
   // lets create a object for our db entry;
   const userDbEntry = {};
   userDbEntry.username = req.body.username;
-  userDbEntry.password = passwordHash
-
+  userDbEntry.password = passwordHash;
   // lets put the password into the database
 
   User.create(userDbEntry, (err, user) => {
@@ -66,6 +66,7 @@
       console.log(user)
       req.session.username = user.username;
       req.session.logged  = true;
+      req.session.message  = "";
       res.redirect('/')
     }
 
