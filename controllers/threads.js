@@ -6,7 +6,6 @@ const Thread = require('../models/threads.js');
 const Piece = require('../models/pieces.js');
 const User = require('../models/users.js');
 
-
 router.get('/', async (req, res) => {
   const allThreads = await Thread.find();
   const changes= req.session.changes;
@@ -42,29 +41,46 @@ router.get('/new', async (req, res) => {
 
 //delete all
 router.get('/deleteall', async (req, res) => {
-  const allThreads = await Thread.remove();
-  const allPieces = await Piece.remove();
-  res.redirect("/threads/");
-});
-
-
-//delete
-
-router.delete('/:id', async (req, res) => {
-  const thethread = await Thread.findById(req.params.id);
-  const currentuser = await User.findOne({username: req.session.username});
   const admin = await User.findOne({username: "admin"});
-
-  if (currentuser.id==thethread.user||currentuser.id==admin.id) {
-    const thread = await Thread.findByIdAndRemove(req.params.id);
-    await Piece.remove({ thread: thread._id });
-    req.session.changes="Successfully Deleted Story Thread";
+  try {
+    const currentuser = await User.findOne({username: req.session.username});
+    if (currentuser.id==admin.id) {
+      const allThreads = await Thread.remove();
+      const allPieces = await Piece.remove();
+      req.session.changes="Successfully Deleted All Story Threads";
+      res.redirect("/threads/");
+    }
+    else {
+      req.session.changes="Cannot Delete All Story Threads, Not an Admin";
+      res.redirect("/threads/");
+    }
+  } catch (e) {
+    req.session.changes="Cannot Delete All Story Threads, Not Logged In";
     res.redirect("/threads/");
-
   }
 
-  else {
-    req.session.changes="Cannot Delete Story Thread, not logged into correct account!";
+});
+
+//delete method (comes from delete button)
+router.delete('/:id', async (req, res) => {
+  const thethread = await Thread.findById(req.params.id);
+  const admin = await User.findOne({username: "admin"});
+  try {
+    const currentuser = await User.findOne({username: req.session.username});
+
+    if (currentuser.id==thethread.user||currentuser.id==admin.id) {
+      const thread = await Thread.findByIdAndRemove(req.params.id);
+      await Piece.remove({ thread: thread._id });
+      req.session.changes="Successfully Deleted Story Thread";
+      res.redirect("/threads/");
+    }
+
+    else {
+      req.session.changes="Cannot Delete Story Thread, not logged into correct account!";
+      res.redirect("/threads/");
+    }
+  } catch (e) {
+    req.session.changes="Cannot Delete Story Thread, not logged into any account!";
     res.redirect("/threads/");
   }
 
@@ -72,19 +88,25 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id/', async (req, res) => {
   const thethread = await Thread.findById(req.params.id);
-  const currentuser = await User.findOne({username: req.session.username});
   const admin = await User.findOne({username: "admin"});
+  try {
+    const currentuser = await User.findOne({username: req.session.username});
 
-  if (currentuser.id==thethread.user||currentuser.id==admin.id) {
-    await Thread.findByIdAndUpdate(req.params.id,req.body);
-    req.session.changes="Changes To Story Thread Successful";
+    if (currentuser.id==thethread.user||currentuser.id==admin.id) {
+      await Thread.findByIdAndUpdate(req.params.id,req.body);
+      req.session.changes="Changes To Story Thread Successful";
+      res.redirect("/threads/");
+    }
+
+    else {
+      req.session.changes="Cannot Change Story Thread, not logged into correct account!";
+      res.redirect("/threads/");
+    }
+  } catch (e) {
+    req.session.changes="Cannot Change Story Thread, not logged into any account!";
     res.redirect("/threads/");
   }
 
-  else {
-    req.session.changes="Cannot Change Story Thread, not logged into correct account!";
-    res.redirect("/threads/");
-  }
 });
 
 //edit get
@@ -114,15 +136,15 @@ router.get('/:id', async (req, res) => {
   });
 });
 
-
-
 // create route
 router.post('/', async (req, res) => {
   try {
     const createdThread = await Thread.create(req.body);
+    res.session.changes="Created your Story Thread!"
     res.redirect('/');
   } catch (err) {
-    res.send(err.message);
+    res.session.changes="Could not create your Story Thread, you probably were not logged in! (Won't see this message through normal use)"
+    res.redirect('/');
   }
 });
 
