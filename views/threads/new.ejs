@@ -10,17 +10,14 @@
   <h2><%=user.username%></h2>
   <form action="/threads/" method="POST">
     title: <input type="text" name="title" value="<%=user.username%>s title" /><br/>
+    
     Start The Story!: <input type="text" name="start" value="I don't know how it started.." /><br/>
 
     Image Url: <input type="text" name="url" value="http://davidnaylor.org/temp/thunderbird-logo-200x200.png" />
 
     views<input type="hidden" name="views" value="0" />
-
     id<input type="hidden" name="id" />
-
-
     user<input type="hidden" name="user" value="<%=user.id%>" />
-
     lastuser<input type="hidden" name="lastuser" value="<%=user.id%>" />
 
     <input type="submit" value="Create thread" />

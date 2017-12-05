@@ -6,23 +6,30 @@
 <body>
   <% include ../partials/user.ejs %>
 
-    <div class="indexbuttons">
+    <div class="indexcontrols">
       <a href="/threads/new"><button>New Story</button></a>
+      <%if (changes) {%>
+        <p><%=changes%></p>
+      <%}%>
       <%if (username ==="admin") {%>
         <a href="/threads/deleteall"><button>Delete All</button></a>
       <%}%>
 
     </div>
 
+    <div class="indexdiv">
     <%# for loop%>
     <%for (let i of threads) { %>
-      <a href="/threads/<%=i.id%>">
+      <div class="indexitem">
+      <a class="indexa" href="/threads/<%=i.id%>">
       <button class="indexbutton" >
       <h2><%=i.title||"No Title"%></h2>
       <img class="indeximg" src= "<%=i.url %>" onerror="this.src = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';"/>
       <p>Views: <%=i.views%></p>
       </button>
       </a>
+      </div>
       <%}%>
+      </div>
     </body>
     </html>

@@ -9,7 +9,7 @@
     <br>
     <%if (currentuser) {%>
       <p>Currently Viewing: <%=currentuser.username%></p>
-      <%if (currentuser.id==oneThread.user) {%>
+      <%if (currentuser.id==oneThread.user||currentuser.username==="admin") {%>
         <div class="access">
         <a href="/threads/<%=oneThread.id%>/edit">
           <button>Edit Thread</button></a>

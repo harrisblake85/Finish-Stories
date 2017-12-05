@@ -9,19 +9,24 @@ const User = require('../models/users.js');
 
 router.get('/', async (req, res) => {
   const allThreads = await Thread.find();
+  const changes= req.session.changes;
+  req.session.changes="";
 
   if (req.session.logged) {
     res.render('threads/index.ejs', {
       threads: allThreads,
       username: req.session.username,
+      changes:changes
 
     });
   } else {
     res.render('threads/index.ejs', {
       threads: allThreads,
-      username:null
+      username:null,
+      changes:changes
     });
   }
+
 });
 router.get('/new', async (req, res) => {
 
@@ -46,13 +51,40 @@ router.get('/deleteall', async (req, res) => {
 //delete
 
 router.delete('/:id', async (req, res) => {
-  const thread = await Thread.findByIdAndRemove(req.params.id);
-  res.redirect("/threads/");
-  await Piece.remove({ thread: thread._id });
+  const thethread = await Thread.findById(req.params.id);
+  const currentuser = await User.findOne({username: req.session.username});
+  const admin = await User.findOne({username: "admin"});
+
+  if (currentuser.id==thethread.user||currentuser.id==admin.id) {
+    const thread = await Thread.findByIdAndRemove(req.params.id);
+    await Piece.remove({ thread: thread._id });
+    req.session.changes="Successfully Deleted Story Thread";
+    res.redirect("/threads/");
+
+  }
+
+  else {
+    req.session.changes="Cannot Delete Story Thread, not logged into correct account!";
+    res.redirect("/threads/");
+  }
+
 });
+
 router.put('/:id/', async (req, res) => {
-  await Thread.findByIdAndUpdate(req.params.id,req.body);
-  res.redirect("/threads/");
+  const thethread = await Thread.findById(req.params.id);
+  const currentuser = await User.findOne({username: req.session.username});
+  const admin = await User.findOne({username: "admin"});
+
+  if (currentuser.id==thethread.user||currentuser.id==admin.id) {
+    await Thread.findByIdAndUpdate(req.params.id,req.body);
+    req.session.changes="Changes To Story Thread Successful";
+    res.redirect("/threads/");
+  }
+
+  else {
+    req.session.changes="Cannot Change Story Thread, not logged into correct account!";
+    res.redirect("/threads/");
+  }
 });
 
 //edit get

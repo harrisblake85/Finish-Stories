@@ -2,7 +2,19 @@ img{
   width: 100px;
   height: 100px;
 }
+.indeximg{
+  width: 100px;
+  height: 100px;
+}
 .indexbutton{
   width:120px;
   height: 200px;
+}
+.indexdiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.indexitem{
+  margin: .2em;
 }
