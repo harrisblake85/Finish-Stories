@@ -15,7 +15,8 @@ router.get('/', async (req, res) => {
   if (req.session.logged) {
     res.render('threads/index.ejs', {
       threads: allThreads,
-      username: req.session.username
+      username: req.session.username,
+
     });
   } else {
     res.render('threads/index.ejs', {
@@ -67,6 +68,7 @@ router.get('/:id/edit', async (req, res) => {
   res.render('threads/edit.ejs', {
     athread: await Thread.findById(req.params.id),
     id: req.params.id
+
   });
 });
 
@@ -83,7 +85,8 @@ router.get('/:id', async (req, res) => {
     oneThread: oneThread,
     pieces: pieces,
     currentuser:currentuser,
-    startuser:startuser
+    startuser:startuser,
+    body:req.session.body
   });
 });
 

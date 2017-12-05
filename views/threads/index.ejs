@@ -18,9 +18,9 @@
     <%# for loop%>
     <%for (let i of threads) { %>
       <a href="/threads/<%=i.id%>">
-      <button>
-      <h2><%=i.title%></h2>
-      <img src=<%=i.url%>>
+      <button class="indexbutton" >
+      <h2><%=i.title||"No Title"%></h2>
+      <img class="indeximg" src="<%=i.url %>" srcset= "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"/>
       <p>Views: <%=i.views%></p>
       </button>
       </a>
