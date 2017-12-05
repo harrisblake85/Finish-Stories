@@ -20,7 +20,7 @@
       <a href="/threads/<%=i.id%>">
       <button class="indexbutton" >
       <h2><%=i.title||"No Title"%></h2>
-      <img class="indeximg" src="<%=i.url %>" srcset= "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"/>
+      <img class="indeximg" src= "<%=i.url %>" onerror="this.src = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';"/>
       <p>Views: <%=i.views%></p>
       </button>
       </a>
