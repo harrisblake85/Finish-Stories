@@ -1,8 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-//seed
-const seed = require('../models/seed.js');
-const seedpieces = require('../models/seedpieces.js');
+
 // models
 const Thread = require('../models/threads.js');
 const Piece = require('../models/pieces.js');
@@ -44,12 +42,6 @@ router.get('/deleteall', async (req, res) => {
   res.redirect("/threads/");
 });
 
-//seed
-router.get('/seed', async (req, res) => {
-  const seed1 = await Thread.create(seed);
-  const seed2 = await Piece.create(seedpieces);
-  res.redirect("/threads/");
-});
 
 //delete
 
