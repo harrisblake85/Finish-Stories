@@ -9,7 +9,7 @@
     <br>
     <%if (currentuser) {%>
       <p>Currently Viewing: <%=currentuser.username%></p>
-      <%if (currentuser.id==oneThread.user||currentuser.username==="admin") {%>
+      <%if (currentuser.id==oneThread.user||currentuser.admin == true){%>
         <div class="access">
         <a href="/threads/<%=oneThread.id%>/edit">
           <button>Edit Thread</button></a>
@@ -17,8 +17,7 @@
           <input type="submit" value="Delete Thread" />
         </form>
       </div>
-      <%}%>
-    <%}%>
+      <%}}%>
 
 
     <img src='<%= oneThread.url %>' />

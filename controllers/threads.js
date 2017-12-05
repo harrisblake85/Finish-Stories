@@ -46,7 +46,7 @@ router.get('/new', async (req, res) => {
 router.get('/deleteall', async (req, res) => {
   try {
     const currentuser = await User.findOne({username: req.session.username});
-    if (currentuser.admin) {
+    if (currentuser.admin===true) {
       const allThreads = await Thread.remove();
       const allPieces = await Piece.remove();
       req.session.changes="Successfully Deleted All Story Threads";
@@ -69,7 +69,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const currentuser = await User.findOne({username: req.session.username});
 
-    if (currentuser.id==thethread.user||currentuser.admin) {
+    if (currentuser.id==thethread.user||currentuser.admin===true) {
       const thread = await Thread.findByIdAndRemove(req.params.id);
       await Piece.remove({ thread: thread._id });
       req.session.changes="Successfully Deleted Story Thread";
@@ -93,7 +93,7 @@ router.put('/:id/', async (req, res) => {
   try {
     const currentuser = await User.findOne({username: req.session.username});
 
-    if (currentuser.id==thethread.user||currentuser.admin) {
+    if (currentuser.id==thethread.user||currentuser.admin===true) {
       await Thread.findByIdAndUpdate(req.params.id,req.body);
       req.session.changes="Changes To Story Thread Successful";
       res.redirect("/threads/");
@@ -122,7 +122,8 @@ router.get('/:id/edit', async (req, res) => {
 
 // show route
 router.get('/:id', async (req, res) => {
-  const oneThread = await Thread.findById(req.params.id);
+  const thethread = await Thread.findById(req.params.id);
+  const oneThread = await Thread.findByIdAndUpdate(req.params.id, {views:thethread.views+=1});
   const starterid=oneThread.user;
   const startuser = await User.findById(starterid);
   const pieces = await Piece.find({ thread: oneThread._id });

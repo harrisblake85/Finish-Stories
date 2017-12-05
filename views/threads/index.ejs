@@ -11,9 +11,12 @@
       <%if (changes) {%>
         <p><%=changes%></p>
       <%}%>
-      <%if (username ==="admin") {%>
-        <a href="/threads/deleteall"><button>Delete All</button></a>
+      <%if (currentuser) {%>
+        <%if (currentuser.admin ===true) {%>
+          <a href="/threads/deleteall"><button>Delete All</button></a>
+        <%}%>
       <%}%>
+
 
     </div>
 
