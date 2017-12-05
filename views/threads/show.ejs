@@ -21,24 +21,31 @@
     <%}%>
 
 
-  <img src='<%= oneThread.url %>' />
-  <p>Thread Started By: <%=startuser.username%></p>
-  <p>Title: <%=oneThread.title%></p>
-  <p><%=oneThread.start%></p>
+    <img src='<%= oneThread.url %>' />
+    <p>Thread Started By: <%=startuser.username%></p>
+    <p>Title: <%=oneThread.title%></p>
+    <p><%=oneThread.start%></p>
+    <%let lastuser = oneThread.user;%>
     <% for (let piece of pieces) { %>
       <img src="<%=piece.url%>">
       <p><%=piece.content%></p>
-    <% } %>
-    <%if (currentuser) {%>
-      <h3>Add To The Story!</h3>
-      <form action='/pieces' method='post'>
-        Story Content:<input type='text' name='content' placeholder='content' />
-        Image Url:<input type='text' name='url' value='https://images.unsplash.com/photo-1466951477635-f802dbe34af9?dpr=1&auto=format&fit=crop&w=376&h=251&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D' />
-        <input type='hidden' name='thread' value='<%= oneThread._id %>' />
-        <input type='hidden' name='user' value='<%= currentuser.id %>' />
-        <input type='submit' />
-      </form>
-    <%}%>
+      <%lastuser = piece.user;%>
+      <% } %>
+      <%if (currentuser) {%>
+        <%if (currentuser.id!=lastuser) {%>
+          <h3>Add To The Story!</h3>
+          <form action='/pieces' method='post'>
+          Story Content:<input type='text' name='content' placeholder='content' />
+          Image Url:<input type='text' name='url' value='https://images.unsplash.com/photo-1466951477635-f802dbe34af9?dpr=1&auto=format&fit=crop&w=376&h=251&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D' />
+          <input type='hidden' name='thread' value='<%= oneThread._id %>' />
+          <input type='hidden' name='user' value='<%= currentuser.id %>' />
+          <input type='hidden' name='respondto' value='<%= lastuser %>' />
+          <input type='submit' />
+          </form>
+          <% } else{ %>
+            <h3>You were the last one to respond to the thread.</h1>
+            <% } %>
+            <%}%>
 
 
   </body>
