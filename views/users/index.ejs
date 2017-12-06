@@ -6,8 +6,6 @@
 <body>
   <% include ../partials/user.ejs %>
 
-  <a href="/users/"><button>Go Back</button></a>
-  
   <%if (currentuser) {%>
     <%if (currentuser.admin ===true) {%>
       <a href="/users/deleteall"><button>Delete All</button></a>
