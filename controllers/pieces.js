@@ -13,7 +13,7 @@
    if (thethread.lastuser!=req.body.id) {
      if (thethread.lastuser==req.body.respondto) {
 
-     console.log('body data: ', req.body);
+     // console.log('body data: ', req.body);
      try {
        const createdPiece = await Piece.create(req.body);
        const updatethread = await Thread.findByIdAndUpdate(req.body.thread,{lastuser:createdPiece.user});

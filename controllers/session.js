@@ -13,7 +13,6 @@
     }
     const currentuser = await User.findOne({username: req.session.username});
     const allUsers = await User.find();
-    console.log(allUsers);
    res.render("users/index.ejs",
    {users:allUsers,currentuser});
   });
@@ -129,11 +128,11 @@
 
     const thisUser = await User.findById(req.params.id);
     const userthreads = await Thread.find({user:thisUser.id});
-    console.log(thisUser);
+    // console.log(thisUser);
     try {
       const currentuser = await User.findOne({username: req.session.username});
-      console.log("current user:");
-      console.log(currentuser);
+      // console.log("current user:");
+      // console.log(currentuser);
       res.render("users/show.ejs",
       {user:thisUser,
       userthreads:userthreads,
@@ -161,7 +160,7 @@
 
          res.redirect('/threads')
        } else {
-        console.log('else in bcrypt compare')
+        // console.log('else in bcrypt compare')
         req.session.message = 'Username or password are incorrect';
         res.redirect('/users/login')
        }
@@ -190,7 +189,7 @@
       res.redirect('/users/register')
     }
     else {
-      console.log(user)
+      // console.log(user)
       req.session.username = user.username;
       req.session.logged  = true;
       req.session.message  = "";

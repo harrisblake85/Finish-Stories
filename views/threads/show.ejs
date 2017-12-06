@@ -7,7 +7,7 @@
     <% include ../partials/user.ejs %>
 
     <a href="/threads/"><button>Go Back</button></a>
-    
+
     <%if (currentuser) {%>
       <p>Currently Viewing: <%=currentuser.username%></p>
       <%if (currentuser.id==oneThread.user||currentuser.admin == true){%>
@@ -19,17 +19,29 @@
         </form>
       </div>
       <%}}%>
+    <p><%=oneThread.title%>, Started By: <%=startuser.username%></p>
+    <hr>
+    <div class="storypiece">
+      <p><strong><%=startuser.username%></strong></p>
+      <img src='<%= oneThread.url %>' />
+      <p><%=oneThread.start%></p>
+      <%let lastuser = oneThread.user;%>
+    </div>
 
-    <img src='<%= oneThread.url %>' />
-    <p>Thread Started By: <%=startuser.username%></p>
-    <p>Title: <%=oneThread.title%></p>
-    <p><%=oneThread.start%></p>
-    <%let lastuser = oneThread.user;%>
+      <hr>
+      <%# for loop for story pieces%>
     <% for (let piece of pieces) { %>
+      <div class="storypiece">
+      <p><strong><%=piece.author%></strong></p>
       <img src="<%=piece.url%>">
       <p><%=piece.content%></p>
       <%lastuser = piece.user;%>
+      </div>
+
+      <hr>
       <% } %>
+
+      <%# new story piece%>
       <%if (currentuser) {%>
         <%if (currentuser.id!=lastuser) {%>
           <h3>Add To The Story!</h3>
@@ -38,6 +50,7 @@
           Image Url:<input type='text' name='url' value='https://images.unsplash.com/photo-1466951477635-f802dbe34af9?dpr=1&auto=format&fit=crop&w=376&h=251&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D' />
           <input type='hidden' name='thread' value='<%= oneThread._id %>' />
           <input type='hidden' name='user' value='<%= currentuser.id %>' />
+          <input type='hidden' name='author' value='<%= currentuser.username %>' />
           <input type='hidden' name='respondto' value='<%= lastuser %>' />
           <input type='submit' />
           </form>
