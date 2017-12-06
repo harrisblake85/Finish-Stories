@@ -4,13 +4,12 @@
   <% include ../partials/head.ejs %>
 </head>
 <body>
-  <a href="/threads/"><button>Go To Threads</button></a>
-  <br>
+  <% include ../partials/user.ejs %>
   <p>Enter Your Username and Password(Case Sensitive)</p>
   <p><%=message%></p>
   Login:
   <br>
-  <form action="/user/login" method="post">
+  <form action="/users/login" method="post">
     Username: <input name="username" /> <br />
     Password:  <input type= "password" name="password" /><br />
 
@@ -18,7 +17,7 @@
   </form>
   Register:
   <br>
-  <form action="/user/register" method="post">
+  <form action="/users/register" method="post">
     Username: <input name="username" /> <br />
     Password:  <input type="password" name="password" /><br />
 

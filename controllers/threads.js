@@ -9,6 +9,16 @@ const User = require('../models/users.js');
 router.get('/', async (req, res) => {
   const currentuser = await User.findOne({username: req.session.username});
   const allThreads = await Thread.find();
+  //sort threads by the most views
+  //https://stackoverflow.com/questions/8837454/sort-array-of-objects-by-single-key-with-date-value
+  allThreads.sort( (a, b) => {
+    var keyA = b.views,
+        keyB = a.views;
+    // Compare the 2 dates
+    if(keyA < keyB) return -1;
+    if(keyA > keyB) return 1;
+    return 0;
+});
   let changes= req.session.changes;
   req.session.changes="";
 
@@ -34,11 +44,11 @@ router.get('/new', async (req, res) => {
 
   const aUser = await User.findOne({username: req.session.username});
   if (aUser) {
-    res.render('threads/new.ejs', {user:aUser});
+    res.render('threads/new.ejs', {currentuser:aUser});
   }
   else {
     req.session.message="You must login or register to make a new thread!"
-    res.redirect("/user/login");
+    res.redirect("/users/login");
   }
 });
 
@@ -112,9 +122,11 @@ router.put('/:id/', async (req, res) => {
 
 //edit get
 router.get('/:id/edit', async (req, res) => {
+  const currentuser = await User.findOne({username: req.session.username});
   res.render('threads/edit.ejs', {
     athread: await Thread.findById(req.params.id),
-    id: req.params.id
+    id: req.params.id,
+    currentuser:currentuser
 
   });
 });

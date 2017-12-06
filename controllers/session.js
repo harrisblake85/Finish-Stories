@@ -1,22 +1,82 @@
   const express = require('express');
   const router = express.Router();
   const User   = require('../models/users.js');
+  const Thread = require('../models/threads.js');
   const bcrypt = require('bcrypt');
 
   router.get('/', async (req, res) => {
+    if (req.session.username) {
+
+    }
+    else {
+      req.session.username = "unlogged";
+    }
+    const currentuser = await User.findOne({username: req.session.username});
     const allUsers = await User.find();
     console.log(allUsers);
-   res.send({users:allUsers});
+   res.render("users/index.ejs",
+   {users:allUsers,currentuser});
   });
 
-  router.get('/login', (req, res) => {
-   res.render("threads/login.ejs",{message:req.session.message});
+  router.get('/login', async (req, res) => {
+    const currentuser = await User.findOne({username: req.session.username});
+   res.render("users/login.ejs",{message:req.session.message,currentuser:currentuser});
   });
 
+  router.get('/logout', (req, res) => {
+   req.session.destroy();
+   res.redirect('/');
+  });
+
+  // router.get('/update',  (req, res) => { //any route will work
+  // 	req.session.username = 'something';
+  //  console.log(req.session);
+  //  res.redirect("/threads/")
+  // });
   router.get('/deleteall', async (req, res) => {
-    const allUser = await User.remove();
-    res.redirect("/threads/");
+
+    try {
+      const currentuser = await User.findOne({username: req.session.username});
+      if (currentuser.admin===true) {
+        const allUser = await User.remove({admin:false});
+        req.session.changes="Successfully Deleted All Users";
+        res.redirect("/users/");
+      }
+      else {
+        req.session.changes="Cannot Delete All Users, Not an Admin";
+        res.redirect("/users/");
+      }
+    } catch (e) {
+      req.session.changes="Cannot Delete All Users, Not Logged In";
+      res.redirect("/users/");
+    }
+    res.redirect("/users/");
   });
+
+  router.get('/:id', async (req, res) => {
+
+    const thisUser = await User.findById(req.params.id);
+    const userthreads = await Thread.find({user:thisUser.id});
+    console.log(thisUser);
+    try {
+      const currentuser = await User.findOne({username: req.session.username});
+      console.log("current user:");
+      console.log(currentuser);
+      res.render("users/show.ejs",
+      {user:thisUser,
+      userthreads:userthreads,
+      currentuser:currentuser});
+    } catch (e) {
+      const currentuser = null;
+      res.render("users/show.ejs",
+      {user:thisUser,
+      userthreads:userthreads,
+      currentuser:currentuser});
+    }
+
+
+  });
+
 
   router.post('/login', async (req, res) => {
   req.body.username=req.body.username.toLowerCase();
@@ -71,18 +131,8 @@
     }
 
   });
-  })
+});
 
-  router.get('/update',  (req, res) => { //any route will work
-  	req.session.username = 'something';
-   console.log(req.session);
-   res.redirect("/threads/")
-  });
-
-  router.get('/logout', (req, res) => {
-   req.session.destroy();
-   res.redirect('/');
-  });
 
   // export the controller
   module.exports = router;

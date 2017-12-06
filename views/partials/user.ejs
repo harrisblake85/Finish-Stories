@@ -1,9 +1,15 @@
 <header>
-  <% if (username) { %>
-    Welcome, <%= username %>. <a href="/user/logout"><button>Log Out</button></a>
-    <% } %>
-  <%if (username===null) {%>
-    <p>Login to Post a New Story Thread!</p>
+  <a href="/threads/">
+    <button>Go To Threads</button></a>
+  <br>
+  <a href="/users/">
+    <button>Go To Users</button></a>
+  <br>
+  <a href="/users/login"><button>Login</button></a>
+  <% if (currentuser) { %>
+    <a href="/users/logout"><button>Log Out</button></a> Welcome, <%= currentuser.username %>.
+    <% }else{%>
+    <p>Not logged in Header Stuff Here</p>
   <%}%>
-  <a href="/user/login"><button>Login</button></a>
+
   </header>

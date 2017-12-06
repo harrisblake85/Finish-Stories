@@ -37,7 +37,7 @@ const sessionsController = require('./controllers/session.js');
 
 app.use('/threads', threadsController);
 app.use('/pieces', piecesController);
-app.use('/user', sessionsController);
+app.use('/users', sessionsController);
 
 // root route
 app.get('/', (req, res) => res.redirect('/threads'));

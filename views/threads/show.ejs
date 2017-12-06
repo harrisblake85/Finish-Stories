@@ -4,9 +4,8 @@
     <% include ../partials/head.ejs %>
   </head>
   <body>
-    <a href="/threads/">
-      <button>Go To Threads</button></a>
-    <br>
+    <% include ../partials/user.ejs %>
+    
     <%if (currentuser) {%>
       <p>Currently Viewing: <%=currentuser.username%></p>
       <%if (currentuser.id==oneThread.user||currentuser.admin == true){%>

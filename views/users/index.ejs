@@ -4,17 +4,25 @@
   <% include ../partials/head.ejs %>
 </head>
 <body>
-        <a href="/user/deleteall"><button>Delete All</button></a>
+  <% include ../partials/user.ejs %>
 
-    </div>
+  <%if (currentuser) {%>
+    <%if (currentuser.admin ===true) {%>
+      <a href="/users/deleteall"><button>Delete All</button></a>
+    <%}%>
+  <%}%>
+
+  <br>
 
     <%# for loop%>
+    <div class="indexdiv">
     <%for (let user of users) { %>
-      <a href="/user/<%=user.id%>">
+      <a href="/users/<%=user.id%>">
       <button>
       <h2><%=user.username%></h2>
       </button>
       </a>
       <%}%>
+    </div>
     </body>
     </html>
