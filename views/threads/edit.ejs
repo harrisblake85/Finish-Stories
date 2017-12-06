@@ -5,7 +5,9 @@
 </head>
 <body>
   <% include ../partials/user.ejs %>
-  
+
+  <a href="/threads/"><button>Go Back</button></a>
+
   <form action="/threads/<%= id %>?_method=PUT" method="POST">
 
     title: <input type="text" name="title" value="<%= athread.title %>"/>

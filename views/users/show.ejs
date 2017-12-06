@@ -5,6 +5,9 @@
   </head>
   <body>
     <% include ../partials/user.ejs %>
+
+    <a href="/users/"><button>Go Back</button></a>
+
     <%if (currentuser) {%>
       <p>Currently Viewing: <%=currentuser.username%></p>
       <%if (currentuser.id==user.id||currentuser.admin == true){%>

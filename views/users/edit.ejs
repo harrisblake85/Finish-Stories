@@ -6,6 +6,8 @@
 <body>
   <% include ../partials/user.ejs %>
 
+  <a href="/users/"><button>Go Back</button></a>
+
   <form action="/users/<%= id %>?_method=PUT" method="POST">
 
 

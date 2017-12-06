@@ -23,7 +23,7 @@ app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(session({
-	 secret: "tshdfhgggidfhsjgh",
+	 secret: "tslllhdfhkjjkgggidfhsjgh",
 	 resave: false,
 	 saveUninitialized: false
 }));
