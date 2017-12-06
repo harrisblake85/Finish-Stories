@@ -5,7 +5,7 @@
   </head>
   <body>
     <% include ../partials/user.ejs %>
-    
+
     <%if (currentuser) {%>
       <p>Currently Viewing: <%=currentuser.username%></p>
       <%if (currentuser.id==oneThread.user||currentuser.admin == true){%>
@@ -17,7 +17,6 @@
         </form>
       </div>
       <%}}%>
-
 
     <img src='<%= oneThread.url %>' />
     <p>Thread Started By: <%=startuser.username%></p>
@@ -43,7 +42,9 @@
           <% } else{ %>
             <h3>You were the last one to respond to the thread.</h3>
             <% } %>
-            <%}%>
+            <%} else{%>
+              <h3>Log in to continue the story!</h3>
+              <%}%>
             <h3><%=body%></h3>
 
   </body>

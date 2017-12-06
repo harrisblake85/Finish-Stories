@@ -16,9 +16,6 @@ const db = mongoose.connection;
 db.on('error', (err) => console.log(err.message));
 db.on('connected', () => console.log('Mongo running: ', mongoURI));
 
-// We're not using this yet, but we will
-// const usersModel = require('./models/users.js');
-
 // middleware
 app.use(express.urlencoded({ extended: false}));
 app.use(express.json());

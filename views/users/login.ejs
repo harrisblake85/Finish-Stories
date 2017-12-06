@@ -6,7 +6,7 @@
 <body>
   <% include ../partials/user.ejs %>
   <p>Enter Your Username and Password(Case Sensitive)</p>
-  <p><%=message%></p>
+  <p css="color:red"><%=message%></p>
   Login:
   <br>
   <form action="/users/login" method="post">
@@ -15,13 +15,8 @@
 
     <button type="submit">Login</button>
   </form>
-  Register:
-  <br>
-  <form action="/users/register" method="post">
-    Username: <input name="username" /> <br />
-    Password:  <input type="password" name="password" /><br />
+  <h3>Register Instead:</h3>
+  <a href="/users/register"><button>Go To Register Page</button></a>
 
-    <button type="submit">Register</button>
-  </form>
 </body>
 </html>

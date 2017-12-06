@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
   //sort threads by the most views
   //https://stackoverflow.com/questions/8837454/sort-array-of-objects-by-single-key-with-date-value
   allThreads.sort( (a, b) => {
-    var keyA = b.views,
+    let keyA = b.views,
         keyB = a.views;
     // Compare the 2 dates
     if(keyA < keyB) return -1;

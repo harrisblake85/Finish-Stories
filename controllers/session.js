@@ -20,7 +20,16 @@
 
   router.get('/login', async (req, res) => {
     const currentuser = await User.findOne({username: req.session.username});
-   res.render("users/login.ejs",{message:req.session.message,currentuser:currentuser});
+    const message = req.session.message;
+    req.session.message= "";
+   res.render("users/login.ejs",{message:message,currentuser:currentuser});
+  });
+
+  router.get('/register', async (req, res) => {
+    const currentuser = await User.findOne({username: req.session.username});
+    const message = req.session.message;
+    req.session.message= "";
+   res.render("users/register.ejs",{message:message,currentuser:currentuser});
   });
 
   router.get('/logout', (req, res) => {
@@ -33,6 +42,7 @@
   //  console.log(req.session);
   //  res.redirect("/threads/")
   // });
+
   router.get('/deleteall', async (req, res) => {
 
     try {
@@ -94,12 +104,12 @@
        } else {
         console.log('else in bcrypt compare')
         req.session.message = 'Username or password are incorrect';
-        res.redirect('/user/login')
+        res.redirect('/users/login')
        }
 
     } else {
       req.session.message = 'Username or password are incorrect';
-      res.redirect('/user/login')
+      res.redirect('/users/login')
 
     }
   });
@@ -119,8 +129,8 @@
   User.create(userDbEntry, (err, user) => {
     if (err) {
       console.log(err);
-      req.session.message="Username already taken!"
-      res.redirect('/user/login')
+      req.session.message="Username/Password is too short or username is already taken! Use the log in page if it is your profile."
+      res.redirect('/users/register')
     }
     else {
       console.log(user)

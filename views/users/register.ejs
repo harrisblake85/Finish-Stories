@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <% include ../partials/user.ejs %>
+    <p>Enter A Username and Password For Your New Profile</p>
+    <p>Must Be Between 2 and 16 Characters</p>
+    <p>Password is Case-Sensitive</p>
+    <p css="color:red"><%=message%></p>
+    Register:
+    <br>
+    <form action="/users/register" method="post">
+      Username: <input name="username" placeholder="username" />  <br />
+      Password:  <input type="password" name="password" placeholder="password" /><br />
+      Profile Picture URL:  <input type="text" name="url" value="http://icons.iconarchive.com/icons/paomedia/small-n-flat/256/profile-icon.png" /><br />
+
+      <button type="submit">Click To Register</button>
+    </form>
+  </body>
+</html>
