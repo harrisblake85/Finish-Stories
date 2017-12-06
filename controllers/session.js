@@ -63,6 +63,71 @@
     res.redirect("/users/");
   });
 
+  //delete method (comes from delete button)
+  router.delete('/:id', async (req, res) => {
+    const theuser = await User.findById(req.params.id);
+    try {
+      const currentuser = await User.findOne({username: req.session.username});
+      //deletes user and any threads they have along with pieces inside of them
+      if (currentuser.id==theuser.id||currentuser.admin===true) {
+        const user = await User.findByIdAndRemove(req.params.id);
+        const userthreads=await Thread.remove({ user: user._id });
+        for (thread0 of userthreads) {
+          let deletepiece = await Piece.remove({thread:thread0});
+        }
+
+        req.session.changes="Successfully Deleted User";
+        res.redirect("/users/");
+      }
+
+      else {
+        req.session.changes="Cannot Delete User, not logged into correct account!";
+        res.redirect("/users/");
+      }
+    } catch (e) {
+      req.session.changes="Cannot Delete User, not logged into any account!";
+      res.redirect("/users/");
+    }
+
+  });
+//edit put route
+  router.put('/:id/', async (req, res) => {
+    const theuser = await User.findById(req.params.id);
+    try {
+      const currentuser = await User.findOne({username: req.session.username});
+
+      if (currentuser.id==theuser.id||currentuser.admin===true) {
+        const password = req.body.password;
+        const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+        req.body.password=passwordHash;
+        await User.findByIdAndUpdate(req.params.id,req.body);
+        req.session.changes="Changes To User Profile Successful";
+        res.redirect("/users/");
+      }
+
+      else {
+        req.session.changes="Cannot Change User Profile, not logged into correct account!";
+        res.redirect("/users/");
+      }
+    } catch (e) {
+      req.session.changes="Cannot Change User Profile, not logged into any account!";
+      res.redirect("/users/");
+    }
+
+  });
+
+  //edit get
+  router.get('/:id/edit', async (req, res) => {
+    const currentuser = await User.findOne({username: req.session.username});
+    res.render('users/edit.ejs', {
+      user: await User.findById(req.params.id),
+      id: req.params.id,
+      currentuser:currentuser
+
+    });
+  });
+
+
   router.get('/:id', async (req, res) => {
 
     const thisUser = await User.findById(req.params.id);
@@ -98,7 +163,7 @@
          req.session.username = req.body.username;
          req.session.logged  = true;
          req.session.session  = "";
-         console.log(req.session, req.body)
+         // console.log(req.session, req.body)
 
          res.redirect('/threads')
        } else {

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include ../partials/head.ejs %>
+</head>
+<body>
+  <% include ../partials/user.ejs %>
+
+  <form action="/users/<%= id %>?_method=PUT" method="POST">
+
+
+    Enter New Username: <input type="text" name="username" value="<%= user.username %>"/>
+    <br/>
+    Enter New Password: <input type="text" name="password" placeholder="password"/>
+    <br/>
+
+    Profile Pic Url: <input type="text" name="url" value="<%= user.url %>"/>
+    <br/>
+    Id(hidden)
+    <input type="hidden" name="id" value="<%= user.id %>"/><br/>
+
+
+  </input>
+
+  <br/>
+  <input type="submit" name="" value="Submit Changes"/>
+</form>
+</body>
+</html>
