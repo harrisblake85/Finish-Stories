@@ -6,7 +6,7 @@
 
   router.get('/', async (req, res) => {
     if (req.session.username) {
-
+      //do nothing
     }
     else {
       req.session.username = "unlogged";
@@ -18,6 +18,7 @@
    {users:allUsers,currentuser});
   });
 
+//login get route
   router.get('/login', async (req, res) => {
     const currentuser = await User.findOne({username: req.session.username});
     const message = req.session.message;
@@ -25,6 +26,7 @@
    res.render("users/login.ejs",{message:message,currentuser:currentuser});
   });
 
+//register get route
   router.get('/register', async (req, res) => {
     const currentuser = await User.findOne({username: req.session.username});
     const message = req.session.message;
@@ -36,17 +38,11 @@
    req.session.destroy();
    res.redirect('/');
   });
-
-  // router.get('/update',  (req, res) => { //any route will work
-  // 	req.session.username = 'something';
-  //  console.log(req.session);
-  //  res.redirect("/threads/")
-  // });
-
+//delete all users route, only useable by admins
   router.get('/deleteall', async (req, res) => {
-
     try {
       const currentuser = await User.findOne({username: req.session.username});
+      //only delete all if an admin
       if (currentuser.admin===true) {
         const allUser = await User.remove({admin:false});
         req.session.changes="Successfully Deleted All Users";
@@ -68,7 +64,8 @@
     const theuser = await User.findById(req.params.id);
     try {
       const currentuser = await User.findOne({username: req.session.username});
-      //deletes user and any threads they have along with pieces inside of them
+
+      //only allow delete if user created it or is an admin
       if (currentuser.id==theuser.id||currentuser.admin===true) {
         const user = await User.findByIdAndRemove(req.params.id);
         const userthreads=await Thread.remove({ user: user._id });
@@ -95,7 +92,7 @@
     const theuser = await User.findById(req.params.id);
     try {
       const currentuser = await User.findOne({username: req.session.username});
-
+      //only allow edit if user created it or is an admin
       if (currentuser.id==theuser.id||currentuser.admin===true) {
         const password = req.body.password;
         const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -127,7 +124,7 @@
     });
   });
 
-
+//show route
   router.get('/:id', async (req, res) => {
 
     const thisUser = await User.findById(req.params.id);
@@ -149,15 +146,12 @@
       currentuser:currentuser});
     }
 
-
   });
-
-
+//login post
   router.post('/login', async (req, res) => {
   req.body.username=req.body.username.toLowerCase();
   const aUser = await User.findOne({username: req.body.username});
     if (aUser) {
-       //now compare hash with the password from the form
        if (bcrypt.compareSync(req.body.password, aUser.password)) {
          req.session.message = '';
          req.session.username = req.body.username;
@@ -178,18 +172,16 @@
 
     }
   });
-  // at top of session.js
 
+//register post
   router.post('/register', (req, res) => {
   // first we are going to hash the password
   const password = req.body.password;
   const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-  // lets create a object for our db entry;
   const userDbEntry = {};
   userDbEntry.username = req.body.username;
   userDbEntry.password = passwordHash;
-  // lets put the password into the database
 
   User.create(userDbEntry, (err, user) => {
     if (err) {

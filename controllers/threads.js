@@ -78,7 +78,7 @@ router.delete('/:id', async (req, res) => {
   const thethread = await Thread.findById(req.params.id);
   try {
     const currentuser = await User.findOne({username: req.session.username});
-
+    //only allow delete if user created it or is an admin
     if (currentuser.id==thethread.user||currentuser.admin===true) {
       const thread = await Thread.findByIdAndRemove(req.params.id);
       await Piece.remove({ thread: thread._id });
@@ -99,10 +99,10 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id/', async (req, res) => {
   const thethread = await Thread.findById(req.params.id);
-  const admin = await User.findOne({username: "admin"});
+
   try {
     const currentuser = await User.findOne({username: req.session.username});
-
+    //only allow edit if user created it or is an admin
     if (currentuser.id==thethread.user||currentuser.admin===true) {
       await Thread.findByIdAndUpdate(req.params.id,req.body);
       req.session.changes="Changes To Story Thread Successful";
