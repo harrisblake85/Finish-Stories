@@ -18,3 +18,10 @@ img{
 .indexitem{
   margin: .2em;
 }
+.userdiv{
+  margin: .2em;
+}
+.userdiv button{
+  width: 100px;
+  height: 50px;
+}

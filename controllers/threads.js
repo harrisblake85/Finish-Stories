@@ -134,8 +134,7 @@ router.get('/:id/edit', async (req, res) => {
 
 // show route
 router.get('/:id', async (req, res) => {
-  const thethread = await Thread.findById(req.params.id);
-  const oneThread = await Thread.findByIdAndUpdate(req.params.id, {views:thethread.views+=1});
+  const oneThread = await Thread.findByIdAndUpdate(req.params.id, {$inc:{views:1}});
   const starterid=oneThread.user;
   const startuser = await User.findById(starterid);
   const pieces = await Piece.find({ thread: oneThread._id });

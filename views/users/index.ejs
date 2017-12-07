@@ -17,12 +17,17 @@
     <%# for loop%>
     <div class="indexdiv">
     <%for (let user of users) { %>
+
+      <div class="userdiv">
       <a href="/users/<%=user.id%>">
       <button>
       <h2><%=user.username%></h2>
       </button>
       </a>
+      </div>
       <%}%>
+
+
     </div>
     </body>
     </html>
