@@ -8,7 +8,7 @@ p,h1,h2,h3,button,input.submit{
 }
 form input{
   font-size: 1.3em;
-  height: 50px;
+  height: 40px;
   width: 300px;
 }
 button{
