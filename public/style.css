@@ -6,19 +6,19 @@ p,h1,h2,h3,button,input.submit{
   font-family: "Bungee", cursive;
 }
 img{
-  height: 90px;
-  width: 20px;
+  height: 180px;
+  width: 40px;
 }
 h3.showend{
   /*text-align: center;*/
 }
 .indeximg{
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
 }
 .indexbutton{
-  width:120px;
-  height: 200px;
+  width:240px;
+  height: 400px;
 }
 .indexdiv{
   display: flex;
@@ -32,15 +32,15 @@ h3.showend{
   margin: .2em;
 }
 .userdiv button{
-  width: 100px;
-  height: 50px;
+  width: 200px;
+  height: 100px;
 }
 /*nav*/
 .universal{
 }
 .navul{
   /*font-size: 40px;*/
-  height: 50px;
+  height: 100px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -63,8 +63,8 @@ h3.showend{
 .navul li a button{
     font-family: 'Bungee', cursive;
     font-size: 15px;
-    width:100px;
-    height:50px;
+    width:200px;
+    height:100px;
     text-transform: capitalize;
     color: white;
     background-color: #6390FF;
@@ -160,21 +160,21 @@ hr{
 }
 
 .profilepic{
-  width:150px;
-  height: 150px;
+  width:300px;
+  height: 300px;
 }
 
 @media (max-width:615px) {
   ul.navul{
-    height:120px;
+    height:240px;
   }
 }
 @media (max-width:310px) {
   ul.navul{
-    height:180px;
+    height:360px;
   }
 }
-@media (max-width:240px) {
+@media (max-width:480px) {
   ul.navul{
     height:400px;
   }
