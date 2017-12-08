@@ -147,6 +147,7 @@ hr{
   border: 1px solid black
 }
 .allpieces{
+
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -156,6 +157,11 @@ hr{
   width: 100%;
   color: white;
   background-color: black;
+}
+
+.profilepic{
+  width:150px;
+  height: 150px;
 }
 
 @media (max-width:615px) {
