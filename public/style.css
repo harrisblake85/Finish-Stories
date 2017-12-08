@@ -152,7 +152,7 @@ button.submit:hover {
   color:gray;
 }
 .storypiece .content{
-  /*float: left;*/
+  font-size: 1.4em;
 }
 hr{
   border-color: black;
