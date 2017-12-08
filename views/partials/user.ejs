@@ -1,16 +1,19 @@
-<header>
-  <a href="/threads/">
-    <button>Go To Threads</button></a>
-  <br>
-  <a href="/users/">
-    <button>Go To Users</button></a>
-  <br>
-  <a href="/users/login"><button>Login</button></a>
-  <a href="/users/register"><button>Register</button></a>
-  <% if (currentuser) { %>
-    <a href="/users/logout"><button>Log Out</button></a> Welcome, <%= currentuser.username %>.
-    <% }else{%>
-    Not logged in
-  <%}%>
-  <hr>
-  </header>
+<ul class ="navul">
+
+    <li><a href="/threads/"><button>Finish-Stories</button></a></li>
+    <li><a href="/threads/new"><button>New Story</button></a></li>
+    <li><a href="/users/"><button>Users</button></a></li>
+
+    <li><a href="/users/login"><button>Login</button></a></li>
+
+      <% if (currentuser) { %>
+        <li><a href="/users/logout"><button>Logout</button></a></li>
+  <li><a href="/users/<%=currentuser.id%>"><button><%= currentuser.username %></button></a></li>
+        <% }else{%>
+          <li><a href="/users/register"><button>Register</button></a></li>%>
+          <li>
+          <a href="/users/login"><button>No User</button></a>
+          </li>
+      <%}%>
+
+  </ul>

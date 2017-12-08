@@ -10,10 +10,13 @@
 
   <form action="/threads/<%= id %>?_method=PUT" method="POST">
 
-    title: <input type="text" name="title" value="<%= athread.title %>"/>
+    Title: <input type="text" name="title" value="<%= athread.title %>"/>
     <br/>
-    start: <input type="text" name="start" value="<%= athread.start %>"/>
-    <br/>
+
+Start The Story! <br>
+<textarea rows="4" cols="50" name="start">
+<%= athread.start %>
+</textarea><br/>
 
     Url: <input type="text" name="url" value="<%= athread.url %>"/>
     <br/>
@@ -23,12 +26,13 @@
     <input type="hidden" name="id" value="<%= athread.id %>"/><br/>
 
     <input type="hidden" name="user" value="<%= athread.user %>"/><br/>
-    
+
     <input type="hidden" name="lastuser" value="<%= athread.lastuser %>"/><br/>
   </input>
 
   <br/>
-  <input type="submit" name="" value="Submit Changes"/>
+  <input class="submit" type="submit" name="" value="Submit Changes"/>
 </form>
+<% include ../partials/footer.ejs %>
 </body>
 </html>

@@ -181,6 +181,7 @@
   const userDbEntry = {};
   userDbEntry.username = req.body.username;
   userDbEntry.password = passwordHash;
+  userDbEntry.url = req.body.url;
 
   User.create(userDbEntry, (err, user) => {
     if (err) {

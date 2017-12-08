@@ -8,11 +8,15 @@
 
   <a href="/threads/"><button>Go Back</button></a>
 
-  <h2><%=currentuser.username%></h2>
+  <h2>Lets Make A New Story <%=currentuser.username%>!</h2>
   <form action="/threads/" method="POST">
-    title: <input type="text" name="title" value="<%=currentuser.username%>s title" /><br/>
+    Title: <input type="text" name="title" value="<%=currentuser.username%>s title" /><br/>
 
-    Start The Story!: <input type="text" name="start" value="I don't know how it started.." /><br/>
+Start The Story! <br>
+    <textarea rows="4" cols="50" name="start">
+How the story started..?
+Well I don't know how it started
+    </textarea><br/>
 
     Image Url: <input type="text" name="url" value="http://davidnaylor.org/temp/thunderbird-logo-200x200.png" />
 
@@ -21,7 +25,8 @@
     <input type="hidden" name="user" value="<%=currentuser.id%>" />
     <input type="hidden" name="lastuser" value="<%=currentuser.id%>" />
 
-    <input type="submit" value="Create thread" />
+    <input class="submit" type="submit" value="Create Thread" />
   </form>
+  <% include ../partials/footer.ejs %>
 </body>
 </html>

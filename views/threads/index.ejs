@@ -7,7 +7,6 @@
   <% include ../partials/user.ejs %>
 
     <div class="indexcontrols">
-      <a href="/threads/new"><button>New Story</button></a>
       <%if (changes) {%>
         <p><%=changes%></p>
       <%}%>
@@ -34,5 +33,6 @@
       <%}%>
       <%# end index div%>
       </div>
+      <% include ../partials/footer.ejs %>
     </body>
     </html>

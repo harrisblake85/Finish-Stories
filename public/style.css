@@ -1,6 +1,16 @@
+body{
+  background-color: #FFFBD1;
+  font-family: "Bungee", cursive;
+}
+p,h1,h2,h3,button,input.submit{
+  font-family: "Bungee", cursive;
+}
 img{
-  width: 100px;
-  height: 100px;
+  height: 90px;
+  width: 20px;
+}
+h3.showend{
+  /*text-align: center;*/
 }
 .indeximg{
   width: 100px;
@@ -24,4 +34,142 @@ img{
 .userdiv button{
   width: 100px;
   height: 50px;
+}
+/*nav*/
+.universal{
+}
+.navul{
+  /*font-size: 40px;*/
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+  list-style-type: none;
+  margin: 0;
+  border-radius: 10px;
+  border: 1px solid #EDFFD1;
+  padding: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow: hidden;
+  background-color: #B6CC93;
+}
+.navul li{
+  display: inline;
+}
+
+
+.navul li a button{
+    font-family: 'Bungee', cursive;
+    font-size: 15px;
+    width:100px;
+    height:50px;
+    text-transform: capitalize;
+    color: white;
+    background-color: #6390FF;
+    text-align: center;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+.navul li a button:hover {
+    background-color: #6367FF;
+    cursor: pointer;
+}
+a button:hover {
+    background-color: darkgray;
+    cursor: pointer;
+}
+input.submit:hover {
+    background-color: darkgray;
+    cursor: pointer;
+}
+button.submit:hover {
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+
+
+.storypiece{
+  padding: 0;
+  margin: 0;
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  overflow:hidden;
+  border-right:2px solid black;
+}
+.textpiece{
+  float: right;
+  height: auto;
+  flex-basis: 79%;
+}
+.textpiece p{
+  margin: auto;
+  font-size: 1.5em;
+}
+.imgpiece{
+  box-sizing: border-box;
+  padding: 0px;
+  flex-basis: 21%;
+  display: inline-flex;
+  border-right: 2px solid black;
+  border-left: 2px solid black;
+  margin: 0;
+  float: left;
+  overflow:hidden;
+  background-size: cover;
+}
+.imgpiece img{
+  flex-basis: 100%;
+  visibility: hidden;
+
+  /*position: inherit;*/
+}
+.storypiece::after{
+  height:inherit;
+}
+.storypiece strong{
+  color:gray;
+}
+.storypiece .content{
+  /*float: left;*/
+}
+hr{
+  border-color: black;
+  width: 100%;
+  margin:0;
+  padding: 0;
+  border: 1px solid black
+}
+.allpieces{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.thefoot{
+  text-align: center;
+  width: 100%;
+  color: white;
+  background-color: black;
+}
+
+@media (max-width:615px) {
+  ul.navul{
+    height:120px;
+  }
+}
+@media (max-width:310px) {
+  ul.navul{
+    height:180px;
+  }
+}
+@media (max-width:240px) {
+  ul.navul{
+    height:400px;
+  }
 }

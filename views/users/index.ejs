@@ -16,18 +16,22 @@
 
     <%# for loop%>
     <div class="indexdiv">
-    <%for (let user of users) { %>
-
-      <div class="userdiv">
-      <a href="/users/<%=user.id%>">
-      <button>
-      <h2><%=user.username%></h2>
+    <%# for loop%>
+    <%for (let i of users) { %>
+      <div class="indexitem">
+      <a class="indexa" href="/users/<%=i.id%>">
+      <button class="indexbutton" >
+      <h2><%=i.username||"No User"%></h2>
+      <img class="indeximg" src= "<%=i.url %>" onerror="this.src = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';"/>
+      <p>Posts: <%=i.posts%></p>
       </button>
       </a>
       </div>
       <%}%>
+      <%# end index div%>
+      </div>
 
 
-    </div>
+    <% include ../partials/footer.ejs %>
     </body>
     </html>

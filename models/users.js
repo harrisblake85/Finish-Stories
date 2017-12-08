@@ -4,7 +4,7 @@
   username: {type:String, unique:true,lowercase: true, minlength:2, maxlength:16},
   password: {type:String, minlength:2},
   admin:{type:Boolean, default:false},
-  url: {type:String, default:"https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"}
+  url: {type:String}
   });
 
   module.exports = mongoose.model('User', userSchema)
