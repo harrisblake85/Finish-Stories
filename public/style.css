@@ -76,7 +76,8 @@ h3.showend{
 
 .navul li a button{
     font-family: 'Bungee', cursive;
-    font-size: 15px;
+    font-size: 1.5em;
+    border-radius: 1em;
     width:200px;
     height:100px;
     text-transform: capitalize;
