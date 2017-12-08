@@ -179,18 +179,18 @@ hr{
   height: 300px;
 }
 
-@media (max-width:615px) {
+@media (max-width:700px) {
   ul.navul{
-    height:240px;
+    height:244px;
   }
 }
-@media (max-width:310px) {
+@media (max-width:350px) {
   ul.navul{
-    height:360px;
+    height:488px;
   }
 }
-@media (max-width:480px) {
+@media (max-width:175px) {
   ul.navul{
-    height:400px;
+    height:966px;
   }
 }
