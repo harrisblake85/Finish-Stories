@@ -7,7 +7,7 @@ p,h1,h2,h3,button,input.submit{
   font-family: "Bungee", cursive;
 }
 button{
-  font-size: 1.05em;
+  font-size: 1.1em;
 }
 img{
   height: 180px;
@@ -24,12 +24,6 @@ h3.showend{
   width:240px;
   height: 400px;
   border-radius: 15px;
-}
-.indexbutton h2{
-  width:240px;
-  height: 400px;
-  border-radius: 15px;
-  font-size: 1em;
 }
 .indexdiv{
   display: flex;
