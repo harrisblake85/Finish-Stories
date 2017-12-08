@@ -25,6 +25,12 @@ h3.showend{
   height: 400px;
   border-radius: 15px;
 }
+.indexbutton h2{
+  width:240px;
+  height: 400px;
+  border-radius: 15px;
+  font-size: 1em;
+}
 .indexdiv{
   display: flex;
   flex-wrap: wrap;
