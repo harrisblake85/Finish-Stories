@@ -6,6 +6,9 @@ body{
 p,h1,h2,h3,button,input.submit{
   font-family: "Bungee", cursive;
 }
+.button{
+  font-size: 2em;
+}
 img{
   height: 180px;
   width: 40px;
