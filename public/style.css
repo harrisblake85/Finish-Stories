@@ -6,6 +6,11 @@ body{
 p,h1,h2,h3,button,input.submit{
   font-family: "Bungee", cursive;
 }
+form input{
+  font-size: 1em;
+  height: 25px;
+  width: 250px;
+}
 button{
   font-size: 1.1em;
 }
