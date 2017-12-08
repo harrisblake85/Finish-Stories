@@ -179,17 +179,17 @@ hr{
   height: 300px;
 }
 
-@media (max-width:375px) {
+@media (max-width:1235px) {
   ul.navul{
     height:244px;
   }
 }
-@media (max-width:180px) {
+@media (max-width:631px) {
   ul.navul{
     height:488px;
   }
 }
-@media (max-width:90px) {
+@media (max-width:431px) {
   ul.navul{
     height:966px;
   }
