@@ -87,18 +87,18 @@
           <form action='/pieces' method='post'>
 
 Continue The Story! <br>
-<textarea rows="4" cols="50" name="content">
+<textarea class="submit" rows="4" cols="50" name="content">
 Thats how it went?
 Well Maybe this is next..
 </textarea>
 <br/>
 
-          Image Url:<input type='text' name='url' value='https://images.unsplash.com/photo-1466951477635-f802dbe34af9?dpr=1&auto=format&fit=crop&w=376&h=251&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D' />
+          Image Url:<input class="" type='text' name='url' value='https://images.unsplash.com/photo-1466951477635-f802dbe34af9?dpr=1&auto=format&fit=crop&w=376&h=251&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D' />
           <input type='hidden' name='thread' value='<%= oneThread._id %>' />
           <input type='hidden' name='user' value='<%= currentuser.id %>' />
           <input type='hidden' name='author' value='<%= currentuser.username %>' />
           <input type='hidden' name='respondto' value='<%= lastuser %>' />
-          <input class="submit" type='submit' />
+          <button class="submit" type="submit">Post!</button>
           </form>
           <% } else{ %>
             <h3 class="showend">You were the last one to respond to the thread.</h3>

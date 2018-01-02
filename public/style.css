@@ -6,10 +6,23 @@ body{
 p,h1,h2,h3,button,input.submit{
   font-family: "Bungee", cursive;
 }
-form input{
+.submit2{
+height: 40px;
+font-family: "Bungee", cursive;
+font-size: 1.3em;
+}
+form.userdata input{
   font-size: 1.3em;
   height: 40px;
   width: 300px;
+}
+form input{
+  font-size: 1.3em;
+}
+form textarea{
+  font-size: 1.3em;
+  /* height: 40px;
+  width: 300px; */
 }
 button{
   font-size: 1.1em;
